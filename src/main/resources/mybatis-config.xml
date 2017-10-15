@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 类型别名 -->
+	<typeAliases>
+		<typeAlias alias="Page" type="cn.enterprisesite.support.web.Page" /><!--分页  -->
+	</typeAliases>
+
+	<!-- 插件配置 -->
+	<plugins>
+		<plugin interceptor="cn.enterprisesite.support.plugin.PagePlugin">
+			<!--指定数据库类型为mysql-->
+			<property name="jdbc.type" value="mysql"></property>
+		</plugin>
+	</plugins>
+
+</configuration>
