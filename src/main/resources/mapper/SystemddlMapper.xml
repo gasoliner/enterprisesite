@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.enterprisesite.system.mapper.SystemddlMapper">
+
+	<sql id="systemddlColumns">
+		uuid AS "id",
+		keyword AS "keyword",
+		ddlcode AS "ddlcode",
+		ddlname AS "ddlname"
+	</sql>
+
+	<select id="get" resultType="systemddl">
+		SELECT
+		<include refid="systemddlColumns"/>
+		FROM systemddl
+		WHERE uuid = #{id}
+	</select>
+
+	<select id="getList" resultType="systemddl">
+		SELECT
+		<include refid="systemddlColumns"/>
+		FROM systemddl
+		<where>
+			<if test="keyword != null and keyword != ''">
+				AND keyword = #{keyword}
+			</if>
+			<if test="ddlcode != null and ddlcode != ''">
+				AND ddlcode = #{ddlcode}
+			</if>
+			<if test="ddlname != null and ddlname != ''">
+				AND ddlname = #{ddlname}
+			</if>
+		</where>
+	</select>
+
+	<select id="getKeywordList" resultType="systemddl">
+		SELECT keyword
+    	FROM systemddl
+    	GROUP BY keyword
+	</select>
+
+	<insert id="insertSelective" parameterType="systemddl">
+		insert into systemddl
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				uuid,
+			</if>
+			<if test="keyword != null">
+				keyword,
+			</if>
+			<if test="ddlcode != null">
+				ddlCode,
+			</if>
+			<if test="ddlname != null">
+				ddlName,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="keyword != null">
+				#{keyword,jdbcType=VARCHAR},
+			</if>
+			<if test="ddlcode != null">
+				#{ddlcode,jdbcType=INTEGER},
+			</if>
+			<if test="ddlname != null">
+				#{ddlname,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<insert id="insert" parameterType="systemddl">
+		insert into systemddl (uuid, keyword, ddlCode,
+		ddlName)
+		values (#{id,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{ddlcode,jdbcType=INTEGER},
+		#{ddlname,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateSelectiveByPrimaryKey" parameterType="systemddl">
+		update systemddl
+		<set>
+			<if test="entity.id != null">
+				uuid = #{entity.id,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.keyword != null">
+				keyword = #{entity.keyword,jdbcType=VARCHAR},
+			</if>
+			<if test="entity.ddlcode != null">
+				ddlCode = #{entity.ddlcode,jdbcType=INTEGER},
+			</if>
+			<if test="entity.ddlname != null">
+				ddlName = #{entity.ddlname,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE uuid = #{entity.id}
+	</update>
+
+	<update id="update" parameterType="systemddl">
+		update systemddl
+		set keyword = #{keyword,jdbcType=VARCHAR},
+		ddlCode = #{ddlcode,jdbcType=INTEGER},
+		ddlName = #{ddlname,jdbcType=VARCHAR}
+		where uuid = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM systemddl
+		WHERE uuid = #{id}
+	</delete>
+	
+</mapper>

@@ -37,11 +37,25 @@ public interface BaseDao<T> {
      int insert(T entity);
 
     /**
+     * 选择性插入数据
+     * @param entity 要插入的实体对象
+     * @return
+     */
+     int insertSelective(T entity);
+
+    /**
      * 更新数据
      * @param entity 要更新的实体对象
      * @return
      */
      int update(T entity);
+
+    /**
+     * 选择性更新数据
+     * @param entity 要更新的实体对象
+     * @return
+     */
+     int updateSelectiveByPrimaryKey(T entity);
 
 
     /**

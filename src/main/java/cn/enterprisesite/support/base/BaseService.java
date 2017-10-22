@@ -66,10 +66,10 @@ public abstract class BaseService<D extends BaseDao<T>,T extends  BaseModel<T>> 
     public void save(T entity) {
         if (StringUtils.isEmpty(entity.getId())){
             entity.preInsert();
-            dao.insert(entity);
+            dao.insertSelective(entity);
         }else{
             entity.preUpdate();
-            dao.update(entity);
+            dao.updateSelectiveByPrimaryKey(entity);
         }
     }
 
